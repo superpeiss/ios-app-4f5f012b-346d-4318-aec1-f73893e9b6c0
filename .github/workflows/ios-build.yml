@@ -30,7 +30,6 @@ jobs:
 
       - name: Build iOS app
         run: |
-          set -o pipefail
           xcodebuild -project SpeechPractice.xcodeproj \
             -scheme SpeechPractice \
             -destination 'generic/platform=iOS' \
@@ -38,18 +37,22 @@ jobs:
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
-            | tee build.log
+            2>&1 | tee build.log
 
-          BUILD_EXIT_CODE=$?
+          BUILD_EXIT_CODE=${PIPESTATUS[0]}
           echo "Build exit code: $BUILD_EXIT_CODE"
 
           if [ $BUILD_EXIT_CODE -eq 0 ]; then
             echo "✅ Build succeeded!"
+            grep "BUILD SUCCEEDED" build.log || echo "Note: BUILD SUCCEEDED not found but exit code was 0"
             echo "BUILD_SUCCESS=true" >> $GITHUB_ENV
           else
             echo "❌ Build failed with exit code $BUILD_EXIT_CODE"
             echo "BUILD_SUCCESS=false" >> $GITHUB_ENV
-            cat build.log
+            echo "=== Last 100 lines of build log ==="
+            tail -100 build.log
+            echo "=== Errors only ==="
+            grep -i "error:" build.log || echo "No error: lines found"
             exit 1
           fi
 
