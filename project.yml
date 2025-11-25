@@ -1,0 +1,55 @@
+name: SpeechPractice
+options:
+  bundleIdPrefix: com.speechpractice
+  deploymentTarget:
+    iOS: "15.0"
+  developmentLanguage: en
+  xcodeVersion: "15.0"
+
+settings:
+  MARKETING_VERSION: "1.0.0"
+  CURRENT_PROJECT_VERSION: "1"
+  IPHONEOS_DEPLOYMENT_TARGET: "15.0"
+  SWIFT_VERSION: "5.9"
+
+targets:
+  SpeechPractice:
+    type: application
+    platform: iOS
+    sources:
+      - SpeechPractice
+    info:
+      path: SpeechPractice/Info.plist
+      properties:
+        CFBundleDisplayName: Speech Practice
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleInfoDictionaryVersion: "6.0"
+        CFBundleName: $(PRODUCT_NAME)
+        CFBundlePackageType: APPL
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: Default Configuration
+                UISceneDelegateClassName: $(PRODUCT_MODULE_NAME).SceneDelegate
+        UIApplicationSupportsIndirectInputEvents: true
+        UILaunchStoryboardName: LaunchScreen
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        NSMicrophoneUsageDescription: "This app needs access to your microphone to record your speech practice sessions."
+        NSSpeechRecognitionUsageDescription: "This app needs speech recognition to analyze your recordings for filler words."
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.speechpractice.app
+        INFOPLIST_FILE: SpeechPractice/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "1,2"
